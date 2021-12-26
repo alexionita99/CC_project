@@ -1,8 +1,11 @@
 CREATE TABLE IF NOT EXISTS books (
     id serial PRIMARY KEY,
-    name varchar,
-    author varchar,
-    description varchar,
-    price varchar,
+    origin varchar,
+    destination varchar,
+    distance varchar,
+    airline varchar,
+    aircraft varchar,
+    registration varchar,
+    seat varchar,
     inserted_at timestamp
 );

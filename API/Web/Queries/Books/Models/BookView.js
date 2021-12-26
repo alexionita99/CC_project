@@ -1,9 +1,12 @@
 class BookView {
     constructor (entry) {
-        this.name = entry.name;
-        this.author = entry.author;
-        this.description = entry.description;
-        this.price = entry.price;
+        this.origin = entry.origin;
+        this.destination = entry.destination;
+        this.distance = entry.distance;
+        this.airline = entry.airline;
+        this.aircraft = entry.aircraft;
+        this.registration = entry.registration;
+        this.seat = entry.seat;
         this.insertedAt = entry.inserted_at;
     }
 }

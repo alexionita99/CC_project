@@ -29,7 +29,7 @@ amqp.connect(process.env.AMQPURL, (error0, connection) => {
             if (msg !== null) {
                 const jsonPayload = JSON.parse(msg.content);
                 try {
-                    await ExecuteQuery("INSERT INTO books (name, description, author, price, inserted_at) VALUES ($1, $2, $3, $4, $5)", [jsonPayload.name, jsonPayload.description, jsonPayload.author, jsonPayload.price, new Date()]);
+                    await ExecuteQuery("INSERT INTO books (origin, destination, distance, airline, aircraft, registration, seat, inserted_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [jsonPayload.origin, jsonPayload.destination, jsonPayload.distance, jsonPayload.airline, jsonPayload.aircraft, jsonPayload.registration, jsonPayload.seat, new Date()]);
                 } catch (err) {
                     console.error(err);
                 }
