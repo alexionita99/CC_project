@@ -7,7 +7,7 @@ class BookView {
         this.aircraft = entry.aircraft;
         this.registration = entry.registration;
         this.seat = entry.seat;
-        this.insertedAt = entry.inserted_at;
+        this.flightday = entry.flightday;
     }
 }
 

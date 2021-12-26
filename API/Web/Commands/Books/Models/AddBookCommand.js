@@ -7,6 +7,7 @@ class AddBookCommand {
         this.aircraft = entry.aircraft;
         this.registration = entry.registration;
         this.seat = entry.seat;
+        this.flightday = entry.flightday;
     }
 }
 

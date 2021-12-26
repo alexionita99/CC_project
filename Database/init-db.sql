@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS books (
     aircraft varchar,
     registration varchar,
     seat varchar,
-    inserted_at timestamp
+    flightday varchar
 );
