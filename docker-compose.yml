@@ -2,36 +2,60 @@ version: '3.8'
 
 services:
   api:
-    image: alex040599/cc_project_api:1
+    image: alex040599/cc_project_api:6
     environment:
       PORT: 8000
       PGHOST: db
       PGDATABASE: log
       PGPORT: 5432
-      PGUSER: ryanair
-      PGPASSWORD: 737max
+      PGUSER_FILE: db-user
+      PGPASSWORD_FILE: db-password
       AMQPURL: amqp://rabbitmq
+      NODE_ENV: staging
+    deploy:
+      replicas: 3
+      placement:
+          max_replicas_per_node: 2
+      update_config:
+          parallelism: 2
+          order: start-first
+      rollback_config:
+          parallelism: 2
+          order: stop-first
     ports:
       - 3000:8000
-    restart: on-failure
     depends_on:
       - rabbitmq
       - db
+    secrets: 
+      - db-user
+      - db-password  
     networks:
       - api-queue
       - api-db
 
   procesator:
-    image: alex040599/cc_project_procesator:1
+    image: alex040599/cc_project_procesator:7
     environment:
       PORT: 8000
       PGHOST: db
       PGDATABASE: log
       PGPORT: 5432
-      PGUSER: ryanair
-      PGPASSWORD: 737max
+      PGUSER_FILE: db-user
+      PGPASSWORD_FILE: db-password
       AMQPURL: amqp://rabbitmq
-    restart: on-failure
+      NODE_ENV: staging
+    deploy:
+        replicas: 3
+        placement:
+            max_replicas_per_node: 2
+        update_config:
+            order: start-first
+        rollback_config:
+            order: stop-first
+    secrets: 
+      - db-user
+      - db-password   
     depends_on:
       - rabbitmq
       - db
@@ -41,29 +65,46 @@ services:
 
   db: 
     image: alex040599/cc_project_db:1
-    restart: always
     environment:
-      POSTGRES_USER: ryanair
-      POSTGRES_PASSWORD: 737max
+      POSTGRES_USER_FILE: /run/secrets/db-user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
       POSTGRES_DB: log
+    deploy:
+        placement:
+            constraints:
+                - "node.role==manager"
     volumes:
-      - ./Database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-      - db-volume:/var/lib/postgresql/data
+        - db-volume:/var/lib/postgresql/data
+    secrets: 
+        - db-user
+        - db-password
     networks:
-      - procesator-db
-      - adminer-db
-      - api-db
+        - procesator-db
+        - adminer-db
+        - api-db
 
   rabbitmq:
     image: rabbitmq:3
+    deploy:
+      replicas: 2
+      placement:
+          max_replicas_per_node: 1
+      update_config:
+          order: start-first
+      rollback_config:
+          order: stop-first
     networks:
-      - api-queue
-      - queue-procesator
+        - api-queue
+        - queue-procesator
 
   adminer:
     image: adminer
     ports:
         - 8000:8080
+    deploy:
+      placement:
+          constraints:
+              - "node.role==manager"
     networks:
         - adminer-db
 
@@ -71,6 +112,10 @@ services:
     image: dockersamples/visualizer:stable
     ports:
         - 8081:8080
+    deploy:
+      placement:
+          constraints:
+              - "node.role==manager"
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
 
@@ -85,4 +130,8 @@ networks:
   api-db:
 
 
-    
+secrets:
+  db-user:
+      external: true
+  db-password:
+      external: true

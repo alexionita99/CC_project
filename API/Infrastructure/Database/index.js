@@ -1,11 +1,14 @@
-const { Pool } = require('pg')
+const { Pool } = require('pg');
+  const {
+    getSecret
+  } = require('docker-secret');
 
 const options = {
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
   port: process.env.PGPORT,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD
+  user: getSecret(process.env.PGUSER_FILE),
+  password: getSecret(process.env.PGPASSWORD_FILE)
 }
 
 const pool = new Pool(options);
