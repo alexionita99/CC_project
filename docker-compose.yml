@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   api:
-    build: './API'
+    image: alex040599/cc_project_api:1
     environment:
       PORT: 8000
       PGHOST: db
@@ -22,7 +22,7 @@ services:
       - api-db
 
   procesator:
-    build: './Procesator'
+    image: alex040599/cc_project_procesator:1
     environment:
       PORT: 8000
       PGHOST: db
@@ -40,7 +40,7 @@ services:
       - queue-procesator
 
   db: 
-    image: postgres
+    image: alex040599/cc_project_db:1
     restart: always
     environment:
       POSTGRES_USER: ryanair
