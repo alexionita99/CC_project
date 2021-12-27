@@ -6,10 +6,10 @@ services:
     environment:
       PORT: 8000
       PGHOST: db
-      PGDATABASE: library
+      PGDATABASE: log
       PGPORT: 5432
-      PGUSER: student
-      PGPASSWORD: student
+      PGUSER: ryanair
+      PGPASSWORD: 737max
       AMQPURL: amqp://rabbitmq
     ports:
       - 9000:8000
@@ -22,10 +22,10 @@ services:
     environment:
       PORT: 8000
       PGHOST: db
-      PGDATABASE: library
+      PGDATABASE: log
       PGPORT: 5432
-      PGUSER: student
-      PGPASSWORD: student
+      PGUSER: ryanair
+      PGPASSWORD: 737max
       AMQPURL: amqp://rabbitmq
     restart: on-failure
     depends_on:
@@ -35,9 +35,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: student
-      POSTGRES_PASSWORD: student
-      POSTGRES_DB: library
+      POSTGRES_USER: ryanair
+      POSTGRES_PASSWORD: 737max
+      POSTGRES_DB: log
     volumes:
       - ./Database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
