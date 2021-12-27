@@ -1,7 +1,7 @@
 {
   "name": "procesator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Procesator for Cloud Computing Project",
   "main": "start.js",
   "scripts": {
     "start": "node start.js"

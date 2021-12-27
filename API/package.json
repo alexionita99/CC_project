@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "Api for Lab Kubernetes Example",
+  "description": "Api for Cloud Computing Project",
   "main": "start.js",
   "scripts": {
     "start-local": "nodemon ./Web/start.js",

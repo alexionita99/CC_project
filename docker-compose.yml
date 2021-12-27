@@ -12,10 +12,14 @@ services:
       PGPASSWORD: 737max
       AMQPURL: amqp://rabbitmq
     ports:
-      - 9000:8000
+      - 3000:8000
     restart: on-failure
     depends_on:
       - rabbitmq
+      - db
+    networks:
+      - api-queue
+      - api-db
 
   procesator:
     build: './Procesator'
@@ -30,6 +34,10 @@ services:
     restart: on-failure
     depends_on:
       - rabbitmq
+      - db
+    networks:
+      - procesator-db
+      - queue-procesator
 
   db: 
     image: postgres
@@ -40,8 +48,41 @@ services:
       POSTGRES_DB: log
     volumes:
       - ./Database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - db-volume:/var/lib/postgresql/data
+    networks:
+      - procesator-db
+      - adminer-db
+      - api-db
 
   rabbitmq:
     image: rabbitmq:3
+    networks:
+      - api-queue
+      - queue-procesator
+
+  adminer:
+    image: adminer
+    ports:
+        - 8000:8080
+    networks:
+        - adminer-db
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+        - 8081:8080
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+    db-volume:
+
+networks:
+  api-queue:
+  queue-procesator:
+  procesator-db:
+  adminer-db:
+  api-db:
+
 
     
