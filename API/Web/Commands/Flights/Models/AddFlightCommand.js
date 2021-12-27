@@ -1,4 +1,4 @@
-class AddBookCommand {
+class AddFlightCommand {
     constructor (entry) {
         this.origin = entry.origin;
         this.destination = entry.destination;
@@ -12,5 +12,5 @@ class AddBookCommand {
 }
 
 module.exports = {
-    AddBookCommand
+    AddFlightCommand
 }

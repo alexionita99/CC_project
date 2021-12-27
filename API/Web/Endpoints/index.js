@@ -1,9 +1,9 @@
 const express = require('express');
 
-const BooksEndpoint = require('./Books');
+const FlightsEndpoint = require('./Flights');
 
 const Router = express.Router();
 
-Router.use('/books', BooksEndpoint);
+Router.use('/flights', FlightsEndpoint);
 
 module.exports = Router;

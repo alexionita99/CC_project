@@ -1,14 +1,14 @@
 const express = require('express');
 
-const GetBooksQueryHandler = require('../../Queries/Books/Handlers/GetBooksQueryHandler.js');
+const GetFlightsQueryHandler = require('../../Queries/Flights/Handlers/GetFlightsQueryHandler.js');
 
 const Router = express.Router();
 
 Router.get('/', async (req, res) => {
     
     try {
-        var books = await GetBooksQueryHandler.QueryAsync();
-        res.json(books);
+        var flights = await GetFlightsQueryHandler.QueryAsync();
+        res.json(flights);
     } catch (err) {
         console.error(err);
         res.status(500).send("Something bad happened!");

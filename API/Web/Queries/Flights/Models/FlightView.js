@@ -1,4 +1,4 @@
-class BookView {
+class FlightView {
     constructor (entry) {
         this.origin = entry.origin;
         this.destination = entry.destination;
@@ -12,5 +12,5 @@ class BookView {
 }
 
 module.exports = {
-    BookView
+    FlightView
 }

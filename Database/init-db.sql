@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS books (
+CREATE TABLE IF NOT EXISTS flights (
     id serial PRIMARY KEY,
     origin varchar,
     destination varchar,
