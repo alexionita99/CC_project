@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      run: rabbitmq
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: rabbitmq
+    spec:
+      containers:
+      - image: rabbitmq:3
+        name: rabbitmq
+        ports:
+        - containerPort: 5672
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

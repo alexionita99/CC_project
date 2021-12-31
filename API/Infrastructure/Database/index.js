@@ -7,8 +7,8 @@ const options = {
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
   port: process.env.PGPORT,
-  user: getSecret(process.env.PGUSER_FILE),
-  password: getSecret(process.env.PGPASSWORD_FILE)
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD
 }
 
 const pool = new Pool(options);

@@ -8,5 +8,5 @@ spec:
     protocol: TCP
     targetPort: 8000
   selector:
-    run: api #select the pod/pods
+    run: api
   type: NodePort

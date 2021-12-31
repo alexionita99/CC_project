@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: procesator
+spec:
+  selector:
+    matchLabels: 
+      run: procesator
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: procesator
+    spec:
+      containers:
+      - image: mobylab/cc-laborator5-proc
+        name: procesator
+        envFrom:
+          - secretRef:
+              name: proc-secret
+        env:
+        - name: PORT
+          value: "8000"
+        - name: PGHOST
+          value: db-cluster-ip-service
+        - name: PGPORT
+          value: "5432"
+        - name: AMQPURL
+          value: amqp://rabbitmq-cluster-ip-service
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

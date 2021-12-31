@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      run: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: db
+    spec:
+      containers:
+      - image: mobylab/cc-laborator5-db
+        name: db
+        envFrom:
+          - secretRef:
+              name: db-secret
+        #volumeMounts:
+        #  - mountPath: /var/lib/postgresql/data
+        #    name: mypd
+ 
+ 
+  #volumes:
+  #- name: mypd
+  #  persistentVolumeClaim:
+  #    claimName: dbpvc
+
