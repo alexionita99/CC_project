@@ -18,13 +18,13 @@ spec:
         envFrom:
           - secretRef:
               name: db-secret
-        #volumeMounts:
-        #  - mountPath: /var/lib/postgresql/data
-        #    name: mypd
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: mypd
  
  
-  #volumes:
-  #- name: mypd
-  #  persistentVolumeClaim:
-  #    claimName: dbpvc
+      volumes:
+      - name: mypd
+        persistentVolumeClaim:
+          claimName: dbpvc
 
