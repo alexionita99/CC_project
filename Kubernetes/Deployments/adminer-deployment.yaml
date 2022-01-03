@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+spec:
+  selector:
+    matchLabels:
+      run: adminer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: adminer
+    spec:
+      containers:
+      - image: adminer
+        name: adminer
+        ports:
+        - containerPort: 8080
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
