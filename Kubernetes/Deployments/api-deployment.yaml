@@ -15,6 +15,10 @@ spec:
       containers:
       - image: mobylab/cc-laborator5-api
         name: api
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
         envFrom:
           - secretRef:
               name: proc-secret
