@@ -13,6 +13,10 @@ services:
       AMQPURL: amqp://rabbitmq
       NODE_ENV: staging
     deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 512M
       replicas: 3
       placement:
           max_replicas_per_node: 2
@@ -46,6 +50,10 @@ services:
       AMQPURL: amqp://rabbitmq
       NODE_ENV: staging
     deploy:
+        resources:
+          limits:
+            cpus: "0.50"
+            memory: 512M
         replicas: 3
         placement:
             max_replicas_per_node: 2
